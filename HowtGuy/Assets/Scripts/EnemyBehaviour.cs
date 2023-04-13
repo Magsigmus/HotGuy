@@ -17,7 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
         
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         throw new NotImplementedException();
     }
