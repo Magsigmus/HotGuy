@@ -21,5 +21,6 @@ public class BowPointer : MonoBehaviour
       //  float angleY = 180 * Mathf.Floor(Mathf.Abs(angleZ / 90));
         gameObject.transform.localEulerAngles = new Vector3(0, 0, angleZ);
       //  gameObject.transform.GetChild(0).localEulerAngles = new Vector3(angleY, 0, 0);
+        if (gameObject.transform.rotation.z > )
     }
 }
