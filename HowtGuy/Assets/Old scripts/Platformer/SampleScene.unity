@@ -1259,6 +1259,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7196187704440384473, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
+      propertyPath: m_Name
+      value: RightArmSprite
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4970070407993011933, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
