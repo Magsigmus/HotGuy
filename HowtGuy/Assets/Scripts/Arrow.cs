@@ -28,6 +28,12 @@ public class Arrow : MonoBehaviour
             rb.gravityScale = 0;
             transform.SetParent(collision.gameObject.transform, true);
         }
+        if (collision.gameObject.tag == "Enemy")
+        {
+            rb.velocity = new Vector2(0, 0);
+            rb.gravityScale = 0;
+            transform.SetParent(collision.gameObject.transform, true);
+        }
     }
 
 
