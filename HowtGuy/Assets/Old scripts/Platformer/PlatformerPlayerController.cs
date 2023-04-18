@@ -12,7 +12,7 @@ public class PlatformerPlayerController : MonoBehaviour
     public bool onGround, stoppedJumping = false;
     static bool recording = false;
     static string path;
-    static int timer = 0;
+    static int timer = 0;   
     public Rigidbody2D rb2D;
 
     private void Start()
