@@ -26,15 +26,20 @@ public class BowPointer : MonoBehaviour
         gameObject.transform.localEulerAngles = new Vector3(0, 0, angleZ);
         //  gameObject.transform.GetChild(0).localEulerAngles = new Vector3(angleY, 0, 0);
         // this is for later if time  if (gameObject.transform.rotation.z > )
-        
-        if (Input.GetMouseButton(0))
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Charge = 0;
+        }
+        else if (Input.GetMouseButton(0))
         {
             Charge += Time.deltaTime;
         }
         else if (Input.GetMouseButtonUp(0))
         {
-            Instantiate(Arrow, transform.position, transform.rotation);
-            Charge = 0;
+            GameObject newArrow = Instantiate(Arrow, transform.position, transform.rotation);
+            newArrow.GetComponent<Rigidbody2D>().velocity = newArrow.transform.right * Charge * 100;
+            
         }
 
 
