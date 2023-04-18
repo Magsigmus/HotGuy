@@ -10,9 +10,6 @@ public class PlatformerPlayerController : MonoBehaviour
         switchDeacceleration, coyotetime, holdingTime, runningJumpExpantion, cutOffVelocity;
     private float holdingTimer, coyotetimeTimer;
     public bool onGround, stoppedJumping = false;
-    static bool recording = false;
-    static string path;
-    static int timer = 0;   
     public Rigidbody2D rb2D;
 
     private void Start()
