@@ -6,22 +6,36 @@ public class ArrowHit : MonoBehaviour
 {
     // Start is called before the first frame update
     Rigidbody2D rb;
-    public Vector3 start;
-    RaycastHit hit;
-    Vector3 hitPoint;
-    Vector3 end;
+    RaycastHit2D hit;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        start = rb.position;
+        
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        end = rb.position;
-        if (Physics.Raycast(start, end - start, out hit))
+        float maxDistance = rb.velocity.magnitude * Time.fixedDeltaTime;
+        hit = Physics2D.Raycast(rb.position, rb.velocity, maxDistance);
+        
+        if (hit)
+        {
+            Debug.Log("THERE IS A HIT");
+            if (hit.collider.gameObject.tag == "Ground" || hit.collider.gameObject.tag == "Enemy")
+            {
+                rb.isKinematic = true;
+                ArrowAnimator AAnimator = GetComponentInChildren<ArrowAnimator>();
+                AAnimator.enabled = false;
+                rb.velocity = new Vector3(0, 0, 0);
+                rb.gravityScale = 0;
+                transform.position = hit.point;
+                transform.SetParent(hit.collider.gameObject.transform, true);
+            }
+        }
+        /*
+        if (Physics2D.Raycast(transform.position, rb.velocity, out hit))
         {
             // Get the point where the ray hit the object
             Debug.Log("THERE IS A HIT");
@@ -33,8 +47,9 @@ public class ArrowHit : MonoBehaviour
                 transform.SetParent(hit.collider.gameObject.transform, true);
             }
 
-        }
+        }*/
 
-        start = rb.position;
+        
     }
+ 
 }
