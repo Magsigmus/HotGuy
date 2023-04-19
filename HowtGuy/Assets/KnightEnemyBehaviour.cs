@@ -77,11 +77,13 @@ public class KnightEnemyBehaviour : MonoBehaviour
         
         if(Math.Sign(rb2D.velocity.x) == Math.Sign(dir.x))
         {
-            rb2D.velocity += new Vector2(Math.Sign(dir.x) * acceleration, rb2D.velocity.y);
+            float vx = Mathf.Clamp(Math.Sign(dir.x) * acceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+            rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
         }
         else
         {
-            rb2D.velocity += new Vector2(Math.Sign(dir.x) * deacceleration, rb2D.velocity.y);
+            float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+            rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
         }
 
         if (jumpEnabled && isGrounded && dir.y > nodeJumpRequirement)

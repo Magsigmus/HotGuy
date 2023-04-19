@@ -374,8 +374,8 @@ MonoBehaviour:
   - 29
   - 30
   - 31
-  heuristic: 0
-  heuristicScale: 1
+  heuristic: 2
+  heuristicScale: 10
   threadCount: 1
   maxFrameTime: 10
   batchGraphUpdates: 0
@@ -8754,7 +8754,7 @@ GameObject:
   - component: {fileID: 1536441805}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8829,11 +8829,11 @@ MonoBehaviour:
   activationDistance: 50
   pathUpdateTime: 0.5
   nextWayPointDistance: 3
-  acceleration: 1
-  deacceleration: 0.03
-  speed: 200
+  acceleration: 0.5
+  deacceleration: 1
+  maxSpeed: 3
   nodeJumpRequirement: 0.8
-  jumpForce: 500
+  jumpVelocity: 3
   jumpCheckOffset: 0.8
   followEnabled: 1
   jumpEnabled: 1
@@ -8895,7 +8895,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 10
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
