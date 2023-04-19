@@ -11,14 +11,16 @@ public class KnightEnemyBehaviour : MonoBehaviour
     public float activationDistance = 50f;
     public float pathUpdateTime = 0.5f;
     public float nextWayPointDistance = 3f;
+    public float stopDistance = 0.3f;
 
     [Header("Physics")]
     public float acceleration = 0.01f;
     public float deacceleration = 0.03f;
     public float maxSpeed = 200f;
-    public float nodeJumpRequirement = 0.8f;
     public float jumpVelocity = 1f;
-    public float jumpCheckOffset = 0.8f;
+    public float minJumpHeight = 0.8f;
+    public float maxJumpHeight = 1f;
+    public float gravity = 0.1f;
 
     [Header("Custom Behaviour")]
     public bool followEnabled = true;
@@ -74,30 +76,50 @@ public class KnightEnemyBehaviour : MonoBehaviour
         }
 
         Vector2 dir = (Vector2)currentPath.vectorPath[currentWayPoint] - rb2D.position;
-        
-        if(Math.Sign(rb2D.velocity.x) == Math.Sign(dir.x))
+        float height = dir.y;
+        for(int i = currentWayPoint + 1; i < currentPath.vectorPath.Count; i++)
+        {
+            if (currentPath.vectorPath[i].x == 0)
+            {
+                height += currentPath.vectorPath[i].y - currentPath.vectorPath[i - 1].y;
+            }
+            else { break; }
+        }
+
+        // Sig: Is there anything that is in the direct path?
+        LayerMask rayMask = LayerMask.GetMask("Solids");
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, new Vector2(dir.x, 0).normalized, stopDistance, rayMask);
+        Debug.DrawRay((Vector2)transform.position, new Vector2(dir.x, 0).normalized * stopDistance, Color.red);
+
+        // Sig: Apply force to the velocity in the x-axis
+        if (hit.collider != null)
+        {
+            rb2D.velocity -= new Vector2(Math.Sign(rb2D.velocity.x) * deacceleration, 0);
+        }
+        else if (!isGrounded || Math.Sign(rb2D.velocity.x) != Math.Sign(dir.x))
+        {
+            float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+            rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
+
+        }
+        else
         {
             float vx = Mathf.Clamp(Math.Sign(dir.x) * acceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
             rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
         }
-        else
-        {
-            float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
-            rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
-        }
 
-        if (jumpEnabled && isGrounded && dir.y > nodeJumpRequirement)
+        //Sig: Makes the enemy jump
+        if (jumpEnabled && isGrounded && height > minJumpHeight && maxJumpHeight > height)
         {
             rb2D.velocity = new Vector2(rb2D.velocity.x, jumpVelocity);
             isGrounded = false;
         }
-
-        float dist = Vector2.Distance(rb2D.position, currentPath.vectorPath[currentWayPoint]);
-        if(dist < nextWayPointDistance)
+        else
         {
-            currentWayPoint++;
+            rb2D.velocity -= new Vector2(0, gravity * Time.fixedDeltaTime);
         }
 
+        //Sig: Makes the sprite look in the appopriate direction
         if (directionLookEnabled)
         {
             if (rb2D.velocity.x > 0.05f)
@@ -113,6 +135,15 @@ public class KnightEnemyBehaviour : MonoBehaviour
                 transform.localScale = newLocalScale;
             }
         }
+
+        //Sig: Do we need to go to the next waypoint?
+        float dist = Vector2.Distance(rb2D.position, currentPath.vectorPath[currentWayPoint]);
+        if(dist < nextWayPointDistance)
+        {
+            currentWayPoint++;
+        }
+
+        Debug.Log(height);
     }
 
     private bool TargetInDistance()
@@ -123,5 +154,9 @@ public class KnightEnemyBehaviour : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if(collision.tag == "Ground") { isGrounded = true; }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Ground") { isGrounded = false; }
     }
 }
