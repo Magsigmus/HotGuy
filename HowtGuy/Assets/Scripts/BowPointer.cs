@@ -16,7 +16,7 @@ public class BowPointer : MonoBehaviour
     public float TimeToCharge;
     public float TimeInExtraCharge;
     public float EndCharge;
-    public float ChargeTime;
+    float ChargeTime;
 
     // Start is called before the first frame update
     void Start()
