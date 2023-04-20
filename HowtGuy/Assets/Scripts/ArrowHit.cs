@@ -32,22 +32,12 @@ public class ArrowHit : MonoBehaviour
                 rb.gravityScale = 0;
                 transform.position = hit.point;
                 transform.SetParent(hit.collider.gameObject.transform, true);
+
+                //this is to disable the skript so that unnedded code wont run in the background
+                enabled = false;
             }
         }
-        /*
-        if (Physics2D.Raycast(transform.position, rb.velocity, out hit))
-        {
-            // Get the point where the ray hit the object
-            Debug.Log("THERE IS A HIT");
-            if (hit.collider.gameObject.tag == "Ground" || hit.collider.gameObject.tag == "Enemy")
-            {
-                rb.isKinematic = true;
-                rb.gravityScale = 0;
-                transform.position = hit.point;
-                transform.SetParent(hit.collider.gameObject.transform, true);
-            }
-
-        }*/
+       
 
         
     }

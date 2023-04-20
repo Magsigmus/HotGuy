@@ -427,4 +427,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Arrow: {fileID: 8212531091714897260, guid: 345d0ae06949ec8469c4c1ecf3c8e872, type: 3}
-  Charge: 0
+  Coldown: 1
+  MaxCharge: 120
+  ExtraCharge: 50
+  TimeToCharge: 1
+  TimeInExtraCharge: 0.1
+  EndCharge: 20
+  ChargeTime: 0
