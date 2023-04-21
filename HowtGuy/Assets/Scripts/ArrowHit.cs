@@ -22,7 +22,6 @@ public class ArrowHit : MonoBehaviour
         
         if (hit)
         {
-            Debug.Log("THERE IS A HIT");
             if (hit.collider.gameObject.tag == "Ground" || hit.collider.gameObject.tag == "Enemy")
             {
                 rb.isKinematic = true;
