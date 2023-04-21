@@ -18,10 +18,18 @@ public class BowPointer : MonoBehaviour
     public float EndCharge;
     float ChargeTime;
 
+    public Sprite bow0;
+    public Sprite bow1;
+    public Sprite bow2;
+    public Sprite bow3;
+    public Sprite bow4;
+
+    SpriteRenderer bow;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        bow = GameObject.Find("Bow").GetComponent<SpriteRenderer>();
     }
     //public float distToPlayer = 1;
     // Update is called once per frame
@@ -48,9 +56,34 @@ public class BowPointer : MonoBehaviour
                     Charge = MaxCharge + ExtraCharge;
                 }
                 else
+
                 {
                     Charge = EndCharge;
                 }
+                if(Charge == EndCharge)
+                {
+                    bow.sprite = bow3;
+                }
+                else if (Charge < MaxCharge / 3 * 1)
+                {
+                    bow.sprite = bow1;
+                }
+                else if(Charge < MaxCharge / 3 * 2)
+                {
+                    bow.sprite = bow2;
+                }
+                else if(Charge < MaxCharge)
+                {
+                    bow.sprite = bow3;
+                }
+                else
+                {
+                    bow.sprite = bow4;
+                }
+
+
+
+
             }
             else if (Input.GetMouseButtonUp(0))
             {
@@ -58,6 +91,7 @@ public class BowPointer : MonoBehaviour
                 newArrow.GetComponent<Rigidbody2D>().velocity = newArrow.transform.right * Charge;
                 Charge = 0;
                 ChargeTime = 0;
+                bow.sprite = bow0;
                 ColdownTwo = Coldown;
             }
         }
