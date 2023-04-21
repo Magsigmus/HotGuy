@@ -36,8 +36,6 @@ public class ArrowHit : MonoBehaviour
                 enabled = false;
             }
         }
-       
-
         
     }
  

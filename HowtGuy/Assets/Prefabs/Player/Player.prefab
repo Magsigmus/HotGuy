@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3777095153494720948}
   - component: {fileID: 6943341024319253007}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: LeftArmSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 4970070407993011932}
   - component: {fileID: 4970070407993011904}
   - component: {fileID: 4970070407993011905}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -227,7 +227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7529837832430904443}
   - component: {fileID: 5173473730150334596}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -309,7 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 966597054253864725}
   - component: {fileID: 5159139127685199802}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RightArmSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ GameObject:
   m_Component:
   - component: {fileID: 386776446376341181}
   - component: {fileID: 4004461712349230842}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShulderPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -433,4 +433,3 @@ MonoBehaviour:
   TimeToCharge: 1
   TimeInExtraCharge: 0.1
   EndCharge: 20
-  ChargeTime: 0
