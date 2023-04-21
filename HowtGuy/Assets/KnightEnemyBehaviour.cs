@@ -11,9 +11,10 @@ public class KnightEnemyBehaviour : MonoBehaviour
     public float activationDistance = 50f;
     public float pathUpdateTime = 0.5f;
     public float nextWayPointDistance = 3f;
-    public float stopDistance = 0.3f;
+    public float obstecaleStopDistance = 0.3f;
+    public float playerStopDistance = 2;
 
-    [Header("Physics")]
+    [Header("Movement")]
     public float acceleration = 0.01f;
     public float deacceleration = 0.03f;
     public float maxSpeed = 200f;
@@ -43,6 +44,9 @@ public class KnightEnemyBehaviour : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Sig: Apllies gravity
+        rb2D.velocity -= new Vector2(0, gravity * Time.fixedDeltaTime);
+
         if (TargetInDistance() && followEnabled) 
         {
             FollowPath();
@@ -67,6 +71,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
 
     private void FollowPath()
     {
+
         if (currentPath == null) { return; }
         if (currentWayPoint >= currentPath.vectorPath.Count) { return; }
 
@@ -88,11 +93,11 @@ public class KnightEnemyBehaviour : MonoBehaviour
 
         // Sig: Is there anything that is in the direct path?
         LayerMask rayMask = LayerMask.GetMask("Solids");
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, new Vector2(dir.x, 0).normalized, stopDistance, rayMask);
-        Debug.DrawRay((Vector2)transform.position, new Vector2(dir.x, 0).normalized * stopDistance, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position, new Vector2(dir.x, 0).normalized, obstecaleStopDistance, rayMask);
+        Debug.DrawRay((Vector2)transform.position, new Vector2(dir.x, 0).normalized * obstecaleStopDistance, Color.red);
 
         // Sig: Apply force to the velocity in the x-axis
-        if (hit.collider != null)
+        if (hit.collider != null || Vector2.Distance(target.position, transform.position) < playerStopDistance)
         {
             rb2D.velocity -= new Vector2(Math.Sign(rb2D.velocity.x) * deacceleration, 0);
         }
@@ -111,12 +116,9 @@ public class KnightEnemyBehaviour : MonoBehaviour
         //Sig: Makes the enemy jump
         if (jumpEnabled && isGrounded && height > minJumpHeight && maxJumpHeight > height)
         {
+            Debug.Log("Triggered");
             rb2D.velocity = new Vector2(rb2D.velocity.x, jumpVelocity);
             isGrounded = false;
-        }
-        else
-        {
-            rb2D.velocity -= new Vector2(0, gravity * Time.fixedDeltaTime);
         }
 
         //Sig: Makes the sprite look in the appopriate direction
@@ -142,8 +144,6 @@ public class KnightEnemyBehaviour : MonoBehaviour
         {
             currentWayPoint++;
         }
-
-        Debug.Log(height);
     }
 
     private bool TargetInDistance()
