@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 using System;
+using System.Xml.Linq;
 
 public class KnightEnemyBehaviour : MonoBehaviour
 {
@@ -33,23 +34,72 @@ public class KnightEnemyBehaviour : MonoBehaviour
     public bool isGrounded = false;
     private Seeker seeker;
     private Rigidbody2D rb2D;
+    private GameObject GFXObject;
+    private Animator animator;
 
     public void Start()
     {
         seeker = GetComponent<Seeker>();
         rb2D = GetComponent<Rigidbody2D>();
+        GFXObject = gameObject.transform.GetChild(0).gameObject;
+        animator = GFXObject.GetComponent<Animator>();
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateTime);
     }
 
     private void FixedUpdate()
     {
+        MakeAnimations();
+
         //Sig: Apllies gravity
         rb2D.velocity -= new Vector2(0, gravity * Time.fixedDeltaTime);
+
+        float vx = -1 * Math.Sign(rb2D.velocity.x) * deacceleration + rb2D.velocity.x;
+        vx = Mathf.Clamp(vx, Math.Min(0, Math.Sign(vx) * maxSpeed), Math.Max(0, Math.Sign(vx) * maxSpeed));
+        rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
 
         if (TargetInDistance() && followEnabled) 
         {
             FollowPath();
+        }
+    }
+
+    private void MakeAnimations()
+    {
+        if (Math.Abs(rb2D.velocity.x) < 1f) { animator.SetBool("Running", false); }
+        else { animator.SetBool("Running", true); }
+
+        if (rb2D.velocity.y > 0.5f) 
+        { 
+            animator.SetBool("Jumping", true);
+            animator.SetBool("Falling", false);
+        }
+        else if (rb2D.velocity.y < -0.5f)
+        { 
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", true);
+        }
+        else
+        {
+            animator.SetBool("Jumping", false);
+            animator.SetBool("Falling", false);
+        }
+
+        //Sig: Makes the sprite look in the appopriate direction
+        if (directionLookEnabled)
+        {
+            if (rb2D.velocity.x < -1f)
+            {
+                Vector3 newLocalScale = GFXObject.transform.localScale;
+                newLocalScale.x = -1 * Math.Abs(newLocalScale.x);
+                GFXObject.transform.localScale = newLocalScale;
+            }
+            else if (rb2D.velocity.x > 1f)
+            {
+                Vector3 newLocalScale = GFXObject.transform.localScale;
+                newLocalScale.x = Math.Abs(newLocalScale.x);
+                GFXObject.transform.localScale = newLocalScale;
+            }
         }
     }
 
@@ -71,7 +121,6 @@ public class KnightEnemyBehaviour : MonoBehaviour
 
     private void FollowPath()
     {
-
         if (currentPath == null) { return; }
         if (currentWayPoint >= currentPath.vectorPath.Count) { return; }
 
@@ -97,46 +146,30 @@ public class KnightEnemyBehaviour : MonoBehaviour
         Debug.DrawRay((Vector2)transform.position, new Vector2(dir.x, 0).normalized * obstecaleStopDistance, Color.red);
 
         // Sig: Apply force to the velocity in the x-axis
-        if (hit.collider != null || Vector2.Distance(target.position, transform.position) < playerStopDistance)
+        if (hit.collider == null && Vector2.Distance(target.position, transform.position) >= playerStopDistance)
         {
-            rb2D.velocity -= new Vector2(Math.Sign(rb2D.velocity.x) * deacceleration, 0);
-        }
-        else if (!isGrounded || Math.Sign(rb2D.velocity.x) != Math.Sign(dir.x))
-        {
-            float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
-            rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
+            if (Math.Sign(rb2D.velocity.x) == Math.Sign(dir.x))
+            {
 
-        }
-        else
-        {
-            float vx = Mathf.Clamp(Math.Sign(dir.x) * acceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
-            rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
+                float vx = Mathf.Clamp(Math.Sign(dir.x) * acceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+                rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
+                rb2D.velocity -= new Vector2(Math.Sign(rb2D.velocity.x) * deacceleration, 0);
+            }
+            else
+            {
+                float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+                rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
+            }
         }
 
         //Sig: Makes the enemy jump
         if (jumpEnabled && isGrounded && height > minJumpHeight && maxJumpHeight > height)
         {
-            Debug.Log("Triggered");
             rb2D.velocity = new Vector2(rb2D.velocity.x, jumpVelocity);
             isGrounded = false;
         }
 
-        //Sig: Makes the sprite look in the appopriate direction
-        if (directionLookEnabled)
-        {
-            if (rb2D.velocity.x > 0.05f)
-            {
-                Vector3 newLocalScale = transform.localScale;
-                newLocalScale.x = -1 * Math.Abs(transform.localScale.x);
-                transform.localScale = newLocalScale;
-            }
-            else if (rb2D.velocity.x > 0.05f)
-            {
-                Vector3 newLocalScale = transform.localScale;
-                newLocalScale.x = Math.Abs(transform.localScale.x);
-                transform.localScale = newLocalScale;
-            }
-        }
+        
 
         //Sig: Do we need to go to the next waypoint?
         float dist = Vector2.Distance(rb2D.position, currentPath.vectorPath[currentWayPoint]);
