@@ -38,7 +38,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
     public float attackAnimationTime = 0.2f;
     public int attackDamage = 1;
 
-    private bool canMove = true;
+    private bool canMove = true, attacking = false;
     private Path currentPath;
     private int currentWayPoint = 0;
     private bool isGrounded = false;
@@ -46,6 +46,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
     private Rigidbody2D rb2D;
     private GameObject GFXObject;
     private Animator animator;
+    private float attackCoolDownTimer = 0;
 
     public void Start()
     {
@@ -55,6 +56,19 @@ public class KnightEnemyBehaviour : MonoBehaviour
         animator = GFXObject.GetComponent<Animator>();
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateTime);
+    }
+
+    private void Update()
+    {
+        attackCoolDownTimer += Time.deltaTime;
+        if (Vector2.Distance(player.position, transform.position) < playerStopDistance && 
+            isGrounded && 
+            rb2D.velocity.x == 0 &&
+            !attacking &&
+            attackCoolDownTimer >= attackCooldown)
+        {
+            StartCoroutine(Attack());
+        }
     }
 
     private void FixedUpdate()
@@ -222,8 +236,8 @@ public class KnightEnemyBehaviour : MonoBehaviour
 
     private IEnumerator Attack()
     {
-        //if (!isGrounded || rb2D.velocity.x != 0) { yield return; }
-
+        attackCoolDownTimer = 0;
+        attacking = true;
         animator.SetBool("StartedAttacking", true);
 
         canMove = false;
@@ -236,11 +250,14 @@ public class KnightEnemyBehaviour : MonoBehaviour
         if(coll.Select(e => e.transform.gameObject.tag).Contains("Player"))
         {
             player.gameObject.GetComponent<HealthCounter>().TakeDamage(attackDamage);
+            Debug.Log("PLAYER TOOK DAMAGE");
         }
 
         yield return new WaitForSeconds(attackAnimationTime);
 
+        animator.SetBool("FinishedAttacking", false);
         canMove = true;
+        attacking = false;
     }
 
     private void OnDrawGizmos()
