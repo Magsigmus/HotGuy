@@ -12,9 +12,15 @@ public class PlatformerPlayerController : MonoBehaviour
     public bool onGround, stoppedJumping = false;
     public Rigidbody2D rb2D;
 
+    Animator playerAnimator;
+    Transform spriteTrans;
+
     private void Start()
     {
-        holdingTimer = holdingTime;        
+        holdingTimer = holdingTime;
+        //this is to find the animator
+        playerAnimator = GameObject.Find("PlayerSprite").GetComponent<Animator>();
+        spriteTrans = GameObject.Find("PlayerSprite").GetComponent<Transform>();
     }
 
     private void Update()
@@ -22,9 +28,14 @@ public class PlatformerPlayerController : MonoBehaviour
         if (!onGround) { coyotetimeTimer += Time.deltaTime; }
         holdingTimer += Time.deltaTime;
 
+        //tgus is to give the animator the speed of the player
+        playerAnimator.SetFloat("Speed", rb2D.velocity.magnitude);
+
         //Jump
         if (Input.GetButtonDown("Jump"))
         {
+            //This is for the animator
+            playerAnimator.SetBool("Grounded", false);
             if (onGround || coyotetimeTimer < coyotetime)
             {
                 Jump();
@@ -70,8 +81,11 @@ public class PlatformerPlayerController : MonoBehaviour
         // Is the velocity under the max speed?
         if (runDir != 0 && rb2D.velocity.x * runDir < topSpeed) 
         {
-            changeInXVelocity += runAcceleration * runDir;
+            //this is to change the diraction the player is facing
+            spriteTrans.localScale = new Vector3 (runDir * Mathf.Abs(spriteTrans.localScale.x), spriteTrans.localScale.y, 1);
 
+            changeInXVelocity += runAcceleration * runDir;
+            
             // Checks if the player is moving in a different direction than the user wants it to
             bool differnetDir = (runDir < 0) != (rb2D.velocity.x < 0);
             bool switchingDir = differnetDir && !(Mathf.Abs(rb2D.velocity.x) < 0.001);
@@ -118,6 +132,8 @@ public class PlatformerPlayerController : MonoBehaviour
         if(collision.gameObject.tag == "Ground") 
         { 
             onGround = true;
+            //This is for the animator
+            playerAnimator.SetBool("Grounded", true);
             stoppedJumping = false;
             coyotetimeTimer = 0;
             if(holdingTimer < holdingTime) { Jump(); holdingTimer = holdingTime; }
@@ -128,6 +144,8 @@ public class PlatformerPlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Ground") 
         { 
             onGround = false;
+            //This is for the animator
+            playerAnimator.SetBool("Grounded", false);
         }
     }
 }
