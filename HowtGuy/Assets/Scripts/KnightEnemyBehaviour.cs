@@ -215,8 +215,6 @@ public class KnightEnemyBehaviour : MonoBehaviour
             isGrounded = false;
         }
 
-        
-
         //Sig: Do we need to go to the next waypoint?
         float dist = Vector2.Distance(rb2D.position, currentPath.vectorPath[currentWayPoint]);
         if(dist < nextWayPointDistance)
@@ -278,7 +276,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
             gameObject.layer = LayerMask.NameToLayer("Decor");
 
             ArrowHit[] allArrows = gameObject.GetComponentsInChildren<ArrowHit>();
-            foreach(ArrowHit arrow in allArrows) { arrow.StartMovement(); }
+            foreach(ArrowHit arrow in allArrows) { arrow.StartMovement(); arrow.damage = 0; }
             animator.SetTrigger("Dying");
             isDead = true;
             rb2D.constraints = RigidbodyConstraints2D.FreezePositionX;
