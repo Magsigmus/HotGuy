@@ -97,7 +97,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.5}
+  m_Offset: {x: 0, y: -1.55}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -122,16 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0181f1e0420517d4e8f218be2c97efcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpGrav: 0.9
-  normalGrav: 2
-  jumpForce: 100
-  runAcceleration: 1.5
+  jumpGrav: 27
+  normalGrav: 57
+  jumpForce: 18
+  runAcceleration: 60
   topSpeed: 10
-  runDeacceleration: 1.7
-  switchDeacceleration: 10
+  runDeacceleration: 70
+  switchDeacceleration: 200
   coyotetime: 0.17
   holdingTime: 0.1
-  runningJumpExpantion: 0.3
+  runningJumpExpantion: 6
   cutOffVelocity: 0.1
   onGround: 0
   stoppedJumping: 0
