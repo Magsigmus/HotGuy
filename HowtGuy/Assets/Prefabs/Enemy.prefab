@@ -178,8 +178,8 @@ MonoBehaviour:
   nextWayPointDistance: 3
   obstecaleStopDistance: 0.3
   playerStopDistance: 3.5
-  acceleration: 2
-  deacceleration: 1
+  acceleration: 40
+  deacceleration: 20
   maxSpeed: 5
   jumpVelocity: 10
   minJumpHeight: 0.24
@@ -190,7 +190,7 @@ MonoBehaviour:
   directionLookEnabled: 1
   maxHealthPoints: 5
   attackCooldown: 2
-  windUpTime: 0.5
+  windUpTime: 0.2
   attackStartingPoint: {fileID: 6984805330799889323}
   attackRadius: 1.5
   attackAnimationTime: 0.2
