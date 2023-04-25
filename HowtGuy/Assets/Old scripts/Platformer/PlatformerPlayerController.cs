@@ -63,9 +63,9 @@ public class PlatformerPlayerController : MonoBehaviour
         float changeInYVelocity = 0;
         // Depending of if jump is pressed when the player jumps a different gravaty is applied
         if (Input.GetAxisRaw("Jump") == 1 && rb2D.velocity.y >= 0 && !stoppedJumping)
-        { changeInYVelocity -= jumpGrav; }
+        { changeInYVelocity -= jumpGrav * Time.deltaTime; }
         else
-        { changeInYVelocity -= normalGrav; stoppedJumping = true; }
+        { changeInYVelocity -= normalGrav * Time.deltaTime; stoppedJumping = true; }
 
         rb2D.velocity += new Vector2(0, changeInYVelocity);
     }
@@ -96,7 +96,7 @@ public class PlatformerPlayerController : MonoBehaviour
         }
 
         // Applies the change to the velocity vector
-        rb2D.velocity += new Vector2(changeInXVelocity, 0);
+        rb2D.velocity += new Vector2(changeInXVelocity * Time.deltaTime, 0);
     }
 
     void DeaccelerateInX()
@@ -111,7 +111,7 @@ public class PlatformerPlayerController : MonoBehaviour
             }
             else
             {
-                float xVal = -1 * Mathf.Sign(rb2D.velocity.x) * runDeacceleration;
+                float xVal = -1 * Mathf.Sign(rb2D.velocity.x) * runDeacceleration * Time.deltaTime;
                 rb2D.velocity += new Vector2(xVal, 0);
             }
         }
@@ -120,7 +120,7 @@ public class PlatformerPlayerController : MonoBehaviour
     // Initiates a jump
     void Jump()
     {
-        rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce + Mathf.Abs(rb2D.velocity.x) * runningJumpExpantion);
+        rb2D.velocity = new Vector2(rb2D.velocity.x, jumpForce + Mathf.Abs(rb2D.velocity.x) * runningJumpExpantion * Time.deltaTime);
         onGround = false;
         stoppedJumping = false;
         coyotetimeTimer = 2*coyotetime;

@@ -20,7 +20,7 @@ public class ArrowHit : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (disabledMovment) { return; }
 

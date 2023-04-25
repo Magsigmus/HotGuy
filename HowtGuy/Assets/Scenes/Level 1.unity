@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.0000038146973}
+  m_AnchoredPosition: {x: 0, y: -0.0000076293945}
   m_SizeDelta: {x: 0, y: 0.000015259}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &120645658
@@ -209,10 +209,6 @@ PrefabInstance:
       propertyPath: slider
       value: 
       objectReference: {fileID: 497486161}
-    - target: {fileID: 4970070407993011905, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
-      propertyPath: jumpForce
-      value: 22
-      objectReference: {fileID: 0}
     - target: {fileID: 4970070407993011906, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -380,10 +376,10 @@ RectTransform:
   m_Father: {fileID: 1624131865}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -252.9299, y: 125.8519}
-  m_SizeDelta: {x: 175.0953, y: 12.9008}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 290, y: -55}
+  m_SizeDelta: {x: 349.6332, y: 25.0361}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &497486161
 MonoBehaviour:
@@ -475,8 +471,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.6, y: 0}
-  m_SizeDelta: {x: 178.125, y: 18.75}
+  m_AnchoredPosition: {x: 2.9, y: 0}
+  m_SizeDelta: {x: 356.25, y: 37.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893873500
 MonoBehaviour:
@@ -9262,8 +9258,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -112.46, y: -0.000002861}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -225.47, y: 0.0000093579}
+  m_SizeDelta: {x: 101.3009, y: 101.3009}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1864116127
 MonoBehaviour:
@@ -9362,5 +9358,17 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 824568958}
+    - target: {fileID: 6984805330721712431, guid: 782bac8439594f8498aece5da884a34f, type: 3}
+      propertyPath: gravity
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984805330721712431, guid: 782bac8439594f8498aece5da884a34f, type: 3}
+      propertyPath: acceleration
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6984805330721712431, guid: 782bac8439594f8498aece5da884a34f, type: 3}
+      propertyPath: deacceleration
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782bac8439594f8498aece5da884a34f, type: 3}

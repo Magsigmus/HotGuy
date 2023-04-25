@@ -78,26 +78,24 @@ public class KnightEnemyBehaviour : MonoBehaviour
         {
             StartCoroutine(Attack());
         }
-    }
 
-    private void FixedUpdate()
-    {
         MakeAnimations();
 
         //Sig: Apllies gravity
-        rb2D.velocity -= new Vector2(0, gravity * Time.fixedDeltaTime);
+        rb2D.velocity -= new Vector2(0, gravity * Time.deltaTime);
 
-        if (TargetInDistance() && followEnabled && !isDead) 
+        if (TargetInDistance() && followEnabled && !isDead)
         {
             FollowPath();
         }
         else
         {
-            float vx = -1 * Math.Sign(rb2D.velocity.x) * deacceleration + rb2D.velocity.x;
+            float vx = Math.Sign(rb2D.velocity.x) * deacceleration * Time.deltaTime + rb2D.velocity.x;
             vx = Mathf.Clamp(vx, Math.Min(0, Math.Sign(vx) * maxSpeed), Math.Max(0, Math.Sign(vx) * maxSpeed));
             rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
         }
     }
+
 
     private void MakeAnimations()
     {
@@ -186,13 +184,13 @@ public class KnightEnemyBehaviour : MonoBehaviour
         {
             if (Math.Sign(rb2D.velocity.x) == Math.Sign(dir.x))
             {
-                float vx = Mathf.Clamp(Math.Sign(dir.x) * acceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+                float vx = Mathf.Clamp(Math.Sign(dir.x) * acceleration * Time.deltaTime + rb2D.velocity.x, -maxSpeed, maxSpeed);
                 rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
-                rb2D.velocity -= new Vector2(Math.Sign(rb2D.velocity.x) * deacceleration, 0);
+                rb2D.velocity -= new Vector2(Math.Sign(rb2D.velocity.x) * deacceleration * Time.deltaTime, 0);
             }
             else
             {
-                float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration + rb2D.velocity.x, -maxSpeed, maxSpeed);
+                float vx = Mathf.Clamp(Math.Sign(dir.x) * deacceleration * Time.deltaTime + rb2D.velocity.x, -maxSpeed, maxSpeed);
                 rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
             }
         }
@@ -204,7 +202,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
             }
             else
             {
-                float vx = -1 * Math.Sign(rb2D.velocity.x) * deacceleration + rb2D.velocity.x;
+                float vx = -1 * Math.Sign(rb2D.velocity.x) * deacceleration * Time.deltaTime + rb2D.velocity.x;
                 vx = Mathf.Clamp(vx, Math.Min(0, Math.Sign(vx) * maxSpeed), Math.Max(0, Math.Sign(vx) * maxSpeed));
                 rb2D.velocity = new Vector2(vx, rb2D.velocity.y);
             }
@@ -288,9 +286,11 @@ public class KnightEnemyBehaviour : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
         UnityEditor.Handles.DrawWireDisc(attackStartingPoint.position, Vector3.back, attackRadius);
     }
-    #endregion
+#endif
+#endregion
 }
