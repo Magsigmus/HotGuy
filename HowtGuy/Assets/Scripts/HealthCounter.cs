@@ -25,7 +25,6 @@ public class HealthCounter : MonoBehaviour
     {
         slider.maxValue = health;
         slider.value = health;
-
     }
 
     public IEnumerator SetHealth(int health)
