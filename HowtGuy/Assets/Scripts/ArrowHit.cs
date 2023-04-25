@@ -7,7 +7,8 @@ public class ArrowHit : MonoBehaviour
     // Start is called before the first frame update
     Rigidbody2D rb;
     RaycastHit2D hit;
-    public int damage = 1;
+    public float damage = 1;
+    public float damageMultiplaier;
     private bool disabledMovment = false;
     private ArrowAnimator aAnimator;
     private float orignalGrav;
@@ -24,6 +25,7 @@ public class ArrowHit : MonoBehaviour
     {
         if (disabledMovment) { return; }
 
+        damage = damageMultiplaier * rb.angularVelocity;
         float maxDistance = rb.velocity.magnitude * Time.fixedDeltaTime;
         hit = Physics2D.Raycast(rb.position, rb.velocity, maxDistance);
         

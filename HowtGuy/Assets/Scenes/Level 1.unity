@@ -209,6 +209,14 @@ PrefabInstance:
       propertyPath: slider
       value: 
       objectReference: {fileID: 497486161}
+    - target: {fileID: 4004461712349230842, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
+      propertyPath: EndCharge
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004461712349230842, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
+      propertyPath: MaxCharge
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 4970070407993011906, guid: d3e2feddff04dca4fbb97c74bf7b398b, type: 3}
       propertyPath: m_RootOrder
       value: 1

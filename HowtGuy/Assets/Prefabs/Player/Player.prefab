@@ -382,11 +382,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Arrow: {fileID: 8212531091714897260, guid: 345d0ae06949ec8469c4c1ecf3c8e872, type: 3}
   Coldown: 1
-  MaxCharge: 120
+  MaxCharge: 60
   ExtraCharge: 50
   TimeToCharge: 1
   TimeInExtraCharge: 0.1
-  EndCharge: 20
+  EndCharge: 40
   bow0: {fileID: 21300000, guid: 6c7a4875c43b6c64d80973523dea59ea, type: 3}
   bow1: {fileID: 21300000, guid: 12ab1ef54adea3b489a7dc41c29fd306, type: 3}
   bow2: {fileID: 21300000, guid: c3993a8c85a6b674d9a48e42383018db, type: 3}
