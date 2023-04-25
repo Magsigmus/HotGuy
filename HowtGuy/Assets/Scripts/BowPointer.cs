@@ -24,6 +24,9 @@ public class BowPointer : MonoBehaviour
     public Sprite bow3;
     public Sprite bow4;
 
+    public AudioSource Draw;
+    public AudioSource Release;
+
     SpriteRenderer bow;
 
     // Start is called before the first frame update
@@ -43,9 +46,11 @@ public class BowPointer : MonoBehaviour
         ColdownTwo -= Time.deltaTime;
         if (ColdownTwo < 0)
         { 
-            
+
             if (Input.GetMouseButton(0))
             {
+                if(Charge == 0) { Draw.Play(); }
+
                 ChargeTime += Time.deltaTime;
                 if (ChargeTime < TimeToCharge)
                 {
@@ -60,6 +65,7 @@ public class BowPointer : MonoBehaviour
                 {
                     Charge = EndCharge;
                 }
+
                 if(Charge == EndCharge)
                 {
                     bow.sprite = bow3;
@@ -82,13 +88,12 @@ public class BowPointer : MonoBehaviour
                 }
 
 
-
-
             }
             else if (Input.GetMouseButtonUp(0))
             {
                 GameObject newArrow = Instantiate(Arrow, transform.position, transform.rotation);
                 newArrow.GetComponent<Rigidbody2D>().velocity = newArrow.transform.right * Charge;
+                Release.Play();
                 Charge = 0;
                 ChargeTime = 0;
                 bow.sprite = bow0;
