@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4970070407993011904}
   - component: {fileID: 4970070407993011905}
   - component: {fileID: 3734848748172791090}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 7529837832430904443}
   - component: {fileID: 5173473730150334596}
   - component: {fileID: 3651047263357505450}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -262,7 +262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3476054965956836194}
   - component: {fileID: 3761076819564168205}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 4004461712349230842}
   - component: {fileID: 8083582447009184570}
   - component: {fileID: 8021373473372296707}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ShulderPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

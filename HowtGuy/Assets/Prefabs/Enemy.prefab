@@ -190,7 +190,7 @@ MonoBehaviour:
   directionLookEnabled: 1
   maxHealthPoints: 5
   attackCooldown: 2
-  windUpTime: 0.2
+  windUpTime: 0.3
   attackStartingPoint: {fileID: 6984805330799889323}
   attackRadius: 1.5
   attackAnimationTime: 0.2
