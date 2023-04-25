@@ -94,6 +94,7 @@ public class BowPointer : MonoBehaviour
                 GameObject newArrow = Instantiate(Arrow, transform.position, transform.rotation);
                 newArrow.GetComponent<Rigidbody2D>().velocity = newArrow.transform.right * Charge;
                 Release.Play();
+                Draw.Stop();
                 Charge = 0;
                 ChargeTime = 0;
                 bow.sprite = bow0;
