@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HealthCounter : MonoBehaviour
@@ -35,5 +37,10 @@ public class HealthCounter : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         slider.value = health;
+
+        if(slider.value <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 }
