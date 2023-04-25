@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 219611658725527905}
   - component: {fileID: 5412609774195292257}
   - component: {fileID: 5427505371695846469}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df168e01aa11f6942aa38bea612e240f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 1
 --- !u!1 &8795336448172936955
 GameObject:
   m_ObjectHideFlags: 0
@@ -77,7 +78,7 @@ GameObject:
   - component: {fileID: 4538937603673104614}
   - component: {fileID: 3280755461689126735}
   - component: {fileID: 2520657918507030578}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: ArrowSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
