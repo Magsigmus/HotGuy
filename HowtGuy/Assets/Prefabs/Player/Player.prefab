@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4970070407993011932}
   - component: {fileID: 4970070407993011904}
   - component: {fileID: 4970070407993011905}
-  m_Layer: 9
+  - component: {fileID: 3734848748172791090}
+  m_Layer: 0
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -123,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpGrav: 0.9
   normalGrav: 2
-  jumpForce: 18
+  jumpForce: 100
   runAcceleration: 1.5
   topSpeed: 10
   runDeacceleration: 1.7
@@ -135,6 +136,20 @@ MonoBehaviour:
   onGround: 0
   stoppedJumping: 0
   rb2D: {fileID: 4970070407993011907}
+--- !u!114 &3734848748172791090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4970070407993011934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d0c5b4c39d851d4db383ab20d529946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPoints: 4
+  slider: {fileID: 0}
 --- !u!1 &5676056722573906748
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +161,7 @@ GameObject:
   - component: {fileID: 7529837832430904443}
   - component: {fileID: 5173473730150334596}
   - component: {fileID: 3651047263357505450}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PlayerSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 386776446376341181}
   - component: {fileID: 4004461712349230842}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ShulderPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

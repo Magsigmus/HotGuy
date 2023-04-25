@@ -31,13 +31,19 @@ public class KnightEnemyBehaviour : MonoBehaviour
     public bool directionLookEnabled = true;
 
     [Header("Combat")]
+    public int maxHealthPoints = 5;
     public float attackCooldown = 0.3f;
     public float windUpTime = 0.5f;
     public Transform attackStartingPoint;
     public float attackRadius = 1.5f;
     public float attackAnimationTime = 0.2f;
     public int attackDamage = 1;
+    public float dyingTime = 1f;
 
+    [HideInInspector]
+    public bool isDead = false;
+
+    private int healthPoints;
     private bool canMove = true, attacking = false;
     private Path currentPath;
     private int currentWayPoint = 0;
@@ -55,6 +61,8 @@ public class KnightEnemyBehaviour : MonoBehaviour
         GFXObject = gameObject.transform.GetChild(0).gameObject;
         animator = GFXObject.GetComponent<Animator>();
 
+        healthPoints = maxHealthPoints;
+
         InvokeRepeating("UpdatePath", 0f, pathUpdateTime);
     }
 
@@ -65,7 +73,8 @@ public class KnightEnemyBehaviour : MonoBehaviour
             isGrounded && 
             rb2D.velocity.x == 0 &&
             !attacking &&
-            attackCoolDownTimer >= attackCooldown)
+            attackCoolDownTimer >= attackCooldown &&
+            !isDead)
         {
             StartCoroutine(Attack());
         }
@@ -78,7 +87,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
         //Sig: Apllies gravity
         rb2D.velocity -= new Vector2(0, gravity * Time.fixedDeltaTime);
 
-        if (TargetInDistance() && followEnabled) 
+        if (TargetInDistance() && followEnabled && !isDead) 
         {
             FollowPath();
         }
@@ -234,6 +243,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
     }
     #endregion
 
+    #region Combat
     private IEnumerator Attack()
     {
         attackCoolDownTimer = 0;
@@ -250,7 +260,6 @@ public class KnightEnemyBehaviour : MonoBehaviour
         if(coll.Select(e => e.transform.gameObject.tag).Contains("Player"))
         {
             player.gameObject.GetComponent<HealthCounter>().TakeDamage(attackDamage);
-            Debug.Log("PLAYER TOOK DAMAGE");
         }
 
         yield return new WaitForSeconds(attackAnimationTime);
@@ -260,8 +269,28 @@ public class KnightEnemyBehaviour : MonoBehaviour
         attacking = false;
     }
 
+    public void TakeDamage(int damage)
+    {
+        healthPoints -= damage;
+
+        if (healthPoints <= 0)
+        {
+            StopAllCoroutines();
+            canMove = false;
+            gameObject.layer = LayerMask.NameToLayer("Decor");
+
+            ArrowHit[] allArrows = gameObject.GetComponentsInChildren<ArrowHit>();
+            foreach(ArrowHit arrow in allArrows) { arrow.StartMovement(); }
+            animator.SetTrigger("Dying");
+            isDead = true;
+            rb2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+            Destroy(gameObject, dyingTime);
+        }
+    }
+
     private void OnDrawGizmos()
     {
         UnityEditor.Handles.DrawWireDisc(attackStartingPoint.position, Vector3.back, attackRadius);
     }
+    #endregion
 }
