@@ -8,6 +8,7 @@ public class ArrowHit : MonoBehaviour
     Rigidbody2D rb;
     RaycastHit2D hit;
     public int damage = 1;
+    public int damageMultiplaier;
     private bool disabledMovment = false;
     private ArrowAnimator aAnimator;
     private float orignalGrav;
@@ -24,6 +25,8 @@ public class ArrowHit : MonoBehaviour
     {
         if (disabledMovment) { return; }
 
+        damage = damageMultiplaier * (int)rb.velocity.magnitude /10;
+        Debug.Log(rb.velocity.magnitude);
         float maxDistance = rb.velocity.magnitude * Time.fixedDeltaTime;
         hit = Physics2D.Raycast(rb.position, rb.velocity, maxDistance);
         
