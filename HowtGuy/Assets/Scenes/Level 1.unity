@@ -11412,17 +11412,5 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 824568958}
-    - target: {fileID: 6984805330721712431, guid: 782bac8439594f8498aece5da884a34f, type: 3}
-      propertyPath: gravity
-      value: 22
-      objectReference: {fileID: 0}
-    - target: {fileID: 6984805330721712431, guid: 782bac8439594f8498aece5da884a34f, type: 3}
-      propertyPath: acceleration
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 6984805330721712431, guid: 782bac8439594f8498aece5da884a34f, type: 3}
-      propertyPath: deacceleration
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 782bac8439594f8498aece5da884a34f, type: 3}

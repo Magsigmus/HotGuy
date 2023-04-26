@@ -99,7 +99,7 @@ public class KnightEnemyBehaviour : MonoBehaviour
 
     private void MakeAnimations()
     {
-        if (Math.Abs(rb2D.velocity.x) < 1f) { animator.SetBool("Running", false); }
+        if (Math.Abs(rb2D.velocity.x) < 0.5f) { animator.SetBool("Running", false); }
         else { animator.SetBool("Running", true); }
 
         if (rb2D.velocity.y > 0.5f) 
