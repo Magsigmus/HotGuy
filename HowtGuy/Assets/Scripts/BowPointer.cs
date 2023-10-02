@@ -46,7 +46,6 @@ public class BowPointer : MonoBehaviour
         ColdownTwo -= Time.deltaTime;
         if (ColdownTwo < 0)
         { 
-
             if (Input.GetMouseButton(0))
             {
                 if(Charge == 0) { Draw.Play(); }
